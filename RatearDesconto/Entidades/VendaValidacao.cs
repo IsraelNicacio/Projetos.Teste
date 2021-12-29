@@ -4,7 +4,6 @@ namespace RatearDesconto.Entidades
 {
     public class VendaValidacao
     {
-        //Validar total com desconto/acréscimo aplicado
         public static void SubTotalTotalDescontoAcrescimoAplicado(decimal SubTotal, decimal Acrescimo, decimal Desconto, decimal Total, string mensagem)
         {
             decimal totalAcrescimoDescontoAplicado = SubTotal + Acrescimo - Desconto;

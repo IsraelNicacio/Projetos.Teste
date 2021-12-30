@@ -13,17 +13,32 @@ namespace RatearDesconto
     {
         static void Main(string[] args)
         {
-            using (StreamReader file = File.OpenText(@"D:\Shared\Integracao_ClickAtende\Exemplo.txt"))
-            using (JsonTextReader reader = new JsonTextReader(file))
+            //Verifica se arquivo existe
+            FileInfo fileInfo = new FileInfo(@"D:\Shared\Integracao_ClickAtende\Exemplo.txt");
+            if (!fileInfo.Exists)
+                throw new ApplicationException("Arquivo inexistente.");
+
+            //Abre arquivo
+            using (TextReader textReader = new StreamReader(fileInfo.FullName, Encoding.UTF8))
             {
-                JObject json = (JObject)JToken.ReadFrom(reader);
+                //Lê arquivo
+                string conteudo = textReader.ReadToEnd();
+
+                var jss = new JsonSerializerSettings
+                {
+                    DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                    DateTimeZoneHandling = DateTimeZoneHandling.Unspecified,
+                    DateParseHandling = DateParseHandling.DateTimeOffset
+                };
+
+                JObject json = (JObject)JsonConvert.DeserializeObject<Object>(conteudo, jss);
 
                 JArray itensArray = (JArray)json["itens"];
 
                 decimal totalDescontoAplicado = 0;
 
                 Venda venda = new Venda(
-                    json.Value<DateTime>("dataHora"),
+                    json.Value<DateTimeOffset>("dataHora").DateTime,
                     Auxiliar.VendaStatus.Realizado,
                     json["total"].Value<decimal>("valorSubTotal"),
                     json["total"].Value<decimal>("valorDesconto"),

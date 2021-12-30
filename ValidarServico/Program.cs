@@ -6,7 +6,7 @@ using System.ServiceProcess;
 try
 {
     ServiceController myService = new ServiceController();
-    myService.ServiceName = "Infofisco x ClickAtente | API";
+    myService.ServiceName = "Mentalistas x ClickAtente | API";
 
     if(myService.Status != ServiceControllerStatus.Running)
         //mensagem

@@ -164,36 +164,5 @@ namespace DIP.Persistencia
             //Retorna
             return dataReaderNFSe;
         }
-
-        public List<IDataReader> ExecuteToListDataReader(SqlCommand sqlCommand, IEnumerable<SqlParameter> sqlParameters)
-        {
-            //Variavel local
-            FbCommand Command;
-            FbParameter parameter;
-            FbDataAdapter dataAdapter;
-
-            Command = new FbCommand(sqlCommand.CommandText, Connection, Transaction);
-
-            foreach (var item in sqlParameters)
-            {
-                parameter = new FbParameter(item.ParameterName, item.Value);
-                parameter.DbType = item.DbType;
-                parameter.IsNullable = item.IsNullable;
-                Command.Parameters.Add(parameter);
-            }
-
-            List<IDataReader> listDataReader = new List<IDataReader>();
-
-            using (FbDataReader dataReader = Command.ExecuteReader())
-            { 
-                while (dataReader.Read())
-                listDataReader.Add(dataReader);
-
-                dataReader.Close();
-            }
-
-            //Retorna
-            return listDataReader;
-        }
     }
 }

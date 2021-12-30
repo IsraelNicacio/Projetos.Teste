@@ -13,5 +13,7 @@ namespace DIP.Intefaces
         public void ExecuteNonQuery(SqlCommand command, IEnumerable<SqlParameter> sqlParameters);
         public object ExecuteScalar(SqlCommand command, IEnumerable<SqlParameter> sqlParameters);
         public DataTable ExecuteToDataTable(SqlCommand command, IEnumerable<SqlParameter> sqlParameters);
+        public IDataReader ExecuteToDataReader(SqlCommand sqlCommand, IEnumerable<SqlParameter> sqlParameters);
+        public List<IDataReader> ExecuteToListDataReader(SqlCommand sqlCommand, IEnumerable<SqlParameter> sqlParameters);
     }
 }

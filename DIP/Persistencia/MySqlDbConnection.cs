@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace DIP.Persistencia
 {
@@ -74,6 +75,31 @@ namespace DIP.Persistencia
         public void Dispose()
         {
             GC.SuppressFinalize(this);
+        }
+
+        public void ExecuteNonQuery(SqlCommand command, IEnumerable<SqlParameter> sqlParameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object ExecuteScalar(SqlCommand command, IEnumerable<SqlParameter> sqlParameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DataTable ExecuteToDataTable(SqlCommand command, IEnumerable<SqlParameter> sqlParameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDataReader ExecuteToDataReader(SqlCommand sqlCommand, IEnumerable<SqlParameter> sqlParameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<IDataReader> ExecuteToListDataReader(SqlCommand sqlCommand, IEnumerable<SqlParameter> sqlParameters)
+        {
+            throw new NotImplementedException();
         }
     }
 }

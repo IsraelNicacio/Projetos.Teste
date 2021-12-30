@@ -57,7 +57,7 @@ namespace DIP.Persistencia
             {
                 if (this.Connection == null)
                 {
-                    this.Connection = new FbConnection("");
+                    this.Connection = new FbConnection("character set=UTF8;data source=10.20.30.69;initial catalog=Infofisco_Mentalista;port number=3050;user id=sysdba;password=masterkey");
                     this.Connection.Open();
                 }
             }
@@ -149,7 +149,6 @@ namespace DIP.Persistencia
             //Variavel local
             FbCommand Command;
             FbParameter parameter;
-            FbDataAdapter dataAdapter;
 
             Command = new FbCommand(sqlCommand.CommandText, Connection, Transaction);
 
@@ -161,8 +160,9 @@ namespace DIP.Persistencia
                 Command.Parameters.Add(parameter);
             }
 
+            FbDataReader dataReaderNFSe = Command.ExecuteReader();
             //Retorna
-            return Command.ExecuteReader();
+            return dataReaderNFSe;
         }
 
         public List<IDataReader> ExecuteToListDataReader(SqlCommand sqlCommand, IEnumerable<SqlParameter> sqlParameters)

@@ -160,9 +160,9 @@ namespace DIP.Persistencia
                 Command.Parameters.Add(parameter);
             }
 
-            FbDataReader dataReaderNFSe = Command.ExecuteReader();
+            FbDataReader dataReader = Command.ExecuteReader();
             //Retorna
-            return dataReaderNFSe;
+            return dataReader;
         }
     }
 }

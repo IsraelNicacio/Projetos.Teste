@@ -77,24 +77,89 @@ namespace DIP.Persistencia
             GC.SuppressFinalize(this);
         }
 
-        public void ExecuteNonQuery(SqlCommand command, IEnumerable<SqlParameter> sqlParameters)
+        public void ExecuteNonQuery(SqlCommand sqlCommand, IEnumerable<SqlParameter> sqlParameters)
         {
-            throw new NotImplementedException();
+            //Variavel local
+            MySqlCommand Command;
+            MySqlParameter parameter;
+
+            Command = new MySqlCommand(sqlCommand.CommandText, Connection, Transaction);
+
+            foreach (var item in sqlParameters)
+            {
+                parameter = new MySqlParameter(item.ParameterName, item.Value);
+                parameter.DbType = item.DbType;
+                parameter.IsNullable = item.IsNullable;
+                Command.Parameters.Add(parameter);
+            }
+
+            Command.ExecuteNonQuery();
         }
 
-        public object ExecuteScalar(SqlCommand command, IEnumerable<SqlParameter> sqlParameters)
+        public object ExecuteScalar(SqlCommand sqlCommand, IEnumerable<SqlParameter> sqlParameters)
         {
-            throw new NotImplementedException();
+            //Variavel local
+            MySqlCommand Command;
+            MySqlParameter parameter;
+
+            Command = new MySqlCommand(sqlCommand.CommandText, Connection, Transaction);
+
+            foreach (var item in sqlParameters)
+            {
+                parameter = new MySqlParameter(item.ParameterName, item.Value);
+                parameter.DbType = item.DbType;
+                parameter.IsNullable = item.IsNullable;
+                Command.Parameters.Add(parameter);
+            }
+
+            return Command.ExecuteScalar();
         }
 
-        public DataTable ExecuteToDataTable(SqlCommand command, IEnumerable<SqlParameter> sqlParameters)
+        public DataTable ExecuteToDataTable(SqlCommand sqlCommand, IEnumerable<SqlParameter> sqlParameters)
         {
-            throw new NotImplementedException();
+            //Variavel local
+            MySqlCommand Command;
+            MySqlParameter parameter;
+            MySqlDataAdapter dataAdapter;
+
+            Command = new MySqlCommand(sqlCommand.CommandText, Connection, Transaction);
+
+            foreach (var item in sqlParameters)
+            {
+                parameter = new MySqlParameter(item.ParameterName, item.Value);
+                parameter.DbType = item.DbType;
+                parameter.IsNullable = item.IsNullable;
+                Command.Parameters.Add(parameter);
+            }
+
+            //Executa
+            dataAdapter = new MySqlDataAdapter(Command);
+            //Carrega resultado
+            DataTable objDataTable = new DataTable();
+            dataAdapter.Fill(objDataTable);
+            //Retorna
+            return objDataTable;
         }
 
         public IDataReader ExecuteToDataReader(SqlCommand sqlCommand, IEnumerable<SqlParameter> sqlParameters)
         {
-            throw new NotImplementedException();
+            //Variavel local
+            MySqlCommand Command;
+            MySqlParameter parameter;
+
+            Command = new MySqlCommand(sqlCommand.CommandText, Connection, Transaction);
+
+            foreach (var item in sqlParameters)
+            {
+                parameter = new MySqlParameter(item.ParameterName, item.Value);
+                parameter.DbType = item.DbType;
+                parameter.IsNullable = item.IsNullable;
+                Command.Parameters.Add(parameter);
+            }
+
+            MySqlDataReader dataReader = Command.ExecuteReader();
+            //Retorna
+            return dataReader;
         }
     }
 }

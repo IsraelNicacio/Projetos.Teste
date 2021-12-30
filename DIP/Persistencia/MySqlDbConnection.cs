@@ -96,10 +96,5 @@ namespace DIP.Persistencia
         {
             throw new NotImplementedException();
         }
-
-        public List<IDataReader> ExecuteToListDataReader(SqlCommand sqlCommand, IEnumerable<SqlParameter> sqlParameters)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
